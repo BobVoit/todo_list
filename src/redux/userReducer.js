@@ -1,5 +1,5 @@
 import { usersAPI } from '../api/api';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 const SET_USER = 'SET_USER';
 const SET_SIGNUP = 'SET_SIGNUP';
