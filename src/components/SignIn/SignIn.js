@@ -1,24 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setSignUp, signUp, setErrorInUser } from '../../redux/userReducer';
+import { login, setErrorInUser } from '../../redux/userReducer';
 import { Redirect } from 'react-router-dom';
-import SignUpForm from './SignUpForm';
+import SignInForm from './SignInForm';
 import { reset } from 'redux-form';
 
 
-const SignUp = props => {
-    let { setSignUp, signUp, setErrorInUser, isSignUp, error} = props;
+const SignIn = props => {
+    let { setErrorInUser, error, isLogin, login} = props;
 
     const onSubmit = (formData, dispatch) => {
-        signUp(formData.login, formData.password, formData.password2);
-        dispatch(reset("signup"));
+        login(formData.login, formData.password);
+        dispatch(reset("signin"));
     }
 
-    if (isSignUp) {
-        setSignUp(false);
-        setErrorInUser(null);
-        return <Redirect to="/login" />
+    if (isLogin) {
+        return <Redirect to="/profile" />
     }
 
     const clearError = () => {
@@ -27,7 +25,7 @@ const SignUp = props => {
 
     return (
         <div>
-            <SignUpForm 
+            <SignInForm 
                 onSubmit={onSubmit}
                 errorSignUp={error}
                 clearError={clearError}
@@ -36,17 +34,16 @@ const SignUp = props => {
     )
 }
 
-SignUp.propTypes = {
+SignIn.propTypes = {
     isLogin: PropTypes.bool,
-    isSignUp: PropTypes.bool
+    error: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({
     isLogin: state.user.isLogin,
-    isSignUp: state.user.isSignUp,
     error: state.user.error,
 })
 
 export default connect(mapStateToProps, {
-    setSignUp, signUp, setErrorInUser
-})(SignUp) 
+    setErrorInUser, login
+})(SignIn) 

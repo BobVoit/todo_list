@@ -1,6 +1,6 @@
 import { Container, CssBaseline, makeStyles, Avatar, Typography, Button, TextField } from '@material-ui/core';
 import React from 'react';
-import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Field, reduxForm } from 'redux-form';
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Input = ({input, meta, ...props}) => {
+export const Input = ({input, meta, ...props}) => {
     return (
         <div>
             <TextField {...input} {...props} 
@@ -42,7 +42,7 @@ const Input = ({input, meta, ...props}) => {
     )
 }
 
-const SignUpForm = props => {
+const SignInForm = props => {
     const classes = useStyles();
     let { clearError } = props;
     return (
@@ -50,13 +50,12 @@ const SignUpForm = props => {
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <AccessibilityNewIcon />
+                    <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">Регистрация</Typography>
+                <Typography component="h1" variant="h5">Вход</Typography>
                 <form className={classes.form} onSubmit={props.handleSubmit}>
-                    <Field onChange={clearError} autoFocus label="Логин" name="login" component={Input} />
-                    <Field onChange={clearError} type="password" label="Пароль" name={"password"} component={Input} />
-                    <Field onChange={clearError} type="password" name={"password2"} label="Повторите пароль" component={Input}/>    
+                    <Field onChange={clearError} autoFocus label={"Логин"} name={"login"} component={Input} />
+                    <Field onChange={clearError} type="password" label={"Пароль"} name={"password"} component={Input} />    
                     <Button color="primary" fullWidth className={classes.submit} type="submit" variant="contained">Sign Up</Button>
                 </form>
                 <Typography color="error">{props.errorSignUp}</Typography>
@@ -67,5 +66,5 @@ const SignUpForm = props => {
 
 
 export default reduxForm({
-    form: "signup"
-})(SignUpForm);
+    form: "signin"
+})(SignInForm);

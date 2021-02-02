@@ -1,8 +1,8 @@
 import * as axios from 'axios';
 
+const DOMEN = "todolist"
 
-
-const baseURL = 'http://todolist/api/index.php?';
+const baseURL = `http://${DOMEN}/api/index.php?`;
 
 export const usersAPI = {
     signUp(login, password, password2) {
@@ -40,6 +40,7 @@ export const usersAPI = {
             method: 'GET',
             url: baseURL,
             params: {
+                method: 'getuserbytoken',
                 token
             }
         });
@@ -74,9 +75,29 @@ export const todosAPI = {
             url: baseURL,
             params: {
                 method: 'deletetodo',
-                todoId
+                id: todoId
             }
         });
+    },
+    countTodos(id) {
+        return axios({
+            method: 'GET',
+            url: baseURL,
+            params: {
+                method: 'counttodos',
+                id
+            }
+        })
+    },
+    dateLastTodo(id) {
+        return axios({
+            method: 'GET',
+            url: baseURL,
+            params: {
+                method: 'datelasttodo',
+                id
+            }
+        })
     }
 }
 

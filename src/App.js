@@ -1,18 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
 import React from 'react';
 import Header from './components/Header/Header';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, withRouter } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import store from './redux/store';
 import { initializeApp } from './redux/appReducer';
 import Preloader from './components/common/Preloader/Preloader';
 import SignUp from './components/SignUp/SignUp';
+import SignIn from './components/SignIn/SignIn';
+import Profile from './components/Profile/Profile';
+import Todos from './components/Todos/Todos';
+
 
 const preloaderStyle = {
   width: '100%',
-  height: '100vh',
+  height: '100%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -33,10 +35,14 @@ class App extends React.Component {
     }
 
     return (
-      <>
+      <div>
+        <Redirect to="/login" />
         <Header />
         <Route path="/signup" render={() => <SignUp />} />
-      </>
+        <Route path="/login" render={() => <SignIn />} />
+        <Route path="/profile" render={() => <Profile />} />
+        <Route path="/todos" render={() => <Todos />} />
+      </div>
     )
   }
 }

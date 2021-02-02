@@ -63,15 +63,17 @@ export const signUp = (login, password, password2) => async dispatch => {
     if (response.data.result === 'ok') {
         dispatch(setSignUp(true));
     } else if (response.data.data === 'error2') {
-        dispatch(setErrorInUser("Введиете верный пароль подтверждения"));
+        dispatch(setErrorInUser("Введены неверные данные"));
     }
 }
 
 export const login = (login, password) => async dispatch => {
-    let response = await usersAPI.login(login, password);
+    let response = await usersAPI.signIn(login, password);
     if (response.data.result === 'ok') {
         dispatch(getUserByToken(response.data.data));
         Cookies.set('token', response.data.data, { expires: 2 });
+    } else if (response.data.data === 'error3') {
+        dispatch(setErrorInUser("Введен неверный логин или пароль"));
     }
 }
 
